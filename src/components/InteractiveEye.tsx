@@ -8,8 +8,8 @@ interface Props {
 }
 
 const InteractiveEye = ({
-  size = 400,
-  trackingSpeed = 0.1,
+  size = 300,
+  trackingSpeed = 0.05,
   primaryColor = "#0A2647",
 }: Props) => {
   const eyeRef = useRef<HTMLDivElement>(null);
@@ -45,14 +45,14 @@ const InteractiveEye = ({
         style={{
           width: size * 0.8,
           height: size * 0.8,
-          background: `linear-gradient(135deg, ${primaryColor}, #1B4B7A)`,
+          background: `linear-gradient(110deg, ${primaryColor}, #1B4B7A)`,
           transformOrigin: "center",
         }}
         animate={{
-          x: rotation.y * 2,
-          y: rotation.x * 2,
+          x: rotation.y * 1.2,
+          y: rotation.x * 1.2,
         }}
-        transition={{ type: "spring", stiffness: 100 }}
+        transition={{ type: "spring", stiffness: 200 }}
       >
         {/* Inner iris details */}
         <div

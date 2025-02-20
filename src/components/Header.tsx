@@ -8,7 +8,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "./ui/navigation-menu";
-import { Phone } from "lucide-react";
+import InteractiveEye from "./InteractiveEye";
 import { motion } from "framer-motion";
 
 interface Props {
@@ -22,26 +22,10 @@ interface Props {
 }
 
 const Header = ({
-  logo = "Eye Care Clinic",
+  logo = "Dr Shirin's",
   navigationItems = [
-    {
-      title: "Services",
-      href: "#",
-      items: [
-        {
-          title: "Eye Examinations",
-          href: "#",
-          description: "Comprehensive eye health evaluations",
-        },
-        {
-          title: "LASIK Surgery",
-          href: "#",
-          description: "Advanced laser vision correction",
-        },
-      ],
-    },
-    { title: "About", href: "#" },
-    { title: "Contact", href: "#" },
+    { title: "Home", href: "#home" },
+    { title: "Services", href: "#services" },
   ],
   emergencyPhone = "1-800-EYE-CARE",
 }: Props) => {
@@ -64,67 +48,86 @@ const Header = ({
       transition={{ type: "spring", stiffness: 100 }}
     >
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-        {/* Logo */}
-        <div className="text-2xl font-bold text-[#0A2647]">{logo}</div>
+        {/* Logo with Interactive Eye */}
+        <div className="flex items-center gap-3">
+          <div className="text-xl md:text-2xl font-bold text-[#0A2647]">
+            {logo}
+          </div>
+          <div className="w-[40px] h-[40px] md:w-[60px] md:h-[60px] opacity-90">
+            <InteractiveEye size={40} trackingSpeed={0.05} />
+          </div>
+        </div>
 
-        {/* Navigation */}
-        <NavigationMenu>
-          <NavigationMenuList>
-            {navigationItems.map((item) => (
-              <NavigationMenuItem key={item.title}>
-                {item.items ? (
-                  <>
-                    <NavigationMenuTrigger className="text-[#0A2647]">
-                      {item.title}
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-4">
-                        {item.items.map((subItem) => (
-                          <li key={subItem.title}>
-                            <NavigationMenuLink asChild>
-                              <a
-                                href={subItem.href}
-                                className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-slate-100 focus:bg-slate-100"
-                              >
-                                <div className="text-sm font-medium leading-none text-[#0A2647]">
-                                  {subItem.title}
-                                </div>
-                                {subItem.description && (
-                                  <p className="line-clamp-2 text-sm leading-snug text-slate-500">
-                                    {subItem.description}
-                                  </p>
-                                )}
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-                        ))}
-                      </ul>
-                    </NavigationMenuContent>
-                  </>
-                ) : (
+        {/* Navigation - Hidden on mobile, visible on desktop */}
+        <div className="hidden md:block">
+          <NavigationMenu>
+            <NavigationMenuList>
+              {navigationItems.map((item) => (
+                <NavigationMenuItem key={item.title}>
                   <NavigationMenuLink asChild>
                     <a
                       href={item.href}
                       className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-[#0A2647] hover:bg-slate-100 focus:bg-slate-100"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const element = document.querySelector(item.href);
+                        element?.scrollIntoView({ behavior: "smooth" });
+                      }}
                     >
                       {item.title}
                     </a>
                   </NavigationMenuLink>
-                )}
-              </NavigationMenuItem>
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu>
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
 
-        {/* Emergency Contact Button */}
-        <Button
-          variant="default"
-          className="bg-[#0A2647] hover:bg-[#0A2647]/90 text-white"
-          onClick={() => (window.location.href = `tel:${emergencyPhone}`)}
-        >
-          <Phone className="mr-2 h-4 w-4" />
-          Emergency: {emergencyPhone}
-        </Button>
+        {/* Mobile Navigation */}
+        <div className="md:hidden">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-[#0A2647]"
+            onClick={() => {
+              const menu = document.createElement("div");
+              menu.className =
+                "fixed inset-0 bg-white z-50 flex flex-col items-center justify-center space-y-4";
+              navigationItems.forEach((item) => {
+                const link = document.createElement("a");
+                link.href = item.href;
+                link.className = "text-xl text-[#0A2647] py-2";
+                link.textContent = item.title;
+                link.onclick = (e) => {
+                  e.preventDefault();
+                  const element = document.querySelector(item.href);
+                  element?.scrollIntoView({ behavior: "smooth" });
+                  document.body.removeChild(menu);
+                };
+                menu.appendChild(link);
+              });
+              const closeBtn = document.createElement("button");
+              closeBtn.className = "absolute top-4 right-4 text-[#0A2647]";
+              closeBtn.textContent = "✕";
+              closeBtn.onclick = () => document.body.removeChild(menu);
+              menu.appendChild(closeBtn);
+              document.body.appendChild(menu);
+            }}
+          >
+            ☰
+          </Button>
+        </div>
+
+        {/* Emergency Contact Button - Hidden on mobile */}
+        <div className="hidden md:block">
+          <Button
+            variant="default"
+            className="bg-[#0A2647] hover:bg-[#0A2647]/90 text-white"
+            onClick={() => (window.location.href = "/profile")}
+          >
+            View My Profile
+          </Button>
+        </div>
       </div>
     </motion.header>
   );
