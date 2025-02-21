@@ -23,10 +23,19 @@ const InteractiveEye = ({
       const eyeCenterX = eyeRect.left + eyeRect.width / 2;
       const eyeCenterY = eyeRect.top + eyeRect.height / 2;
 
-      const angleX = (e.clientX - eyeCenterX) * trackingSpeed;
-      const angleY = (e.clientY - eyeCenterY) * trackingSpeed;
+      // Calculate the distance from the center
+      const dx = e.clientX - eyeCenterX;
+      const dy = e.clientY - eyeCenterY;
 
-      setRotation({ x: angleY, y: angleX });
+      // Calculate the angle and distance
+      const angle = Math.atan2(dy, dx);
+      const distance = Math.min(Math.sqrt(dx * dx + dy * dy), size * 0.2);
+
+      // Convert to x,y coordinates within bounds
+      const x = Math.cos(angle) * distance * trackingSpeed;
+      const y = Math.sin(angle) * distance * trackingSpeed;
+
+      setRotation({ x: y, y: x });
     };
 
     window.addEventListener("mousemove", handleMouseMove);

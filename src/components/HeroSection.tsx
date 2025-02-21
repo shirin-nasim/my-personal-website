@@ -8,12 +8,16 @@ interface Props {
   doctorName?: string;
   tagline?: string;
   doctorImageUrl?: string;
+  imageRatio?: string;
+  imageFit?: "cover" | "contain" | "fill";
 }
 
 const HeroSection = ({
   doctorName = "Dr. Shirin Nasimudeen",
   tagline = "Expert Eye Care with a Personal Touch",
   doctorImageUrl = "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop",
+  imageRatio = "16/9",
+  imageFit = "contain",
 }: Props) => {
   const navigate = useNavigate();
 
@@ -71,15 +75,12 @@ const HeroSection = ({
             <img
               src={doctorImageUrl}
               alt={doctorName}
-              className="rounded-lg shadow-xl w-full max-w-md mx-auto"
+              className={`rounded-lg shadow-xl w-full max-w-md mx-auto object-${imageFit}`}
+              style={{ aspectRatio: imageRatio }}
             />
-            {/* Certification Badge */}
-            <div className="absolute -bottom-6 -right-6 bg-white rounded-full p-4 shadow-lg">
-              <img
-                src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
-                alt="Certification"
-                className="w-12 h-12 object-contain"
-              />
+            {/* Interactive Eye Badge */}
+            <div className="absolute -bottom-6 -right-6 bg-white rounded-full p-2 shadow-lg">
+              <InteractiveEye size={58} trackingSpeed={0.9} />
             </div>
           </div>
         </div>

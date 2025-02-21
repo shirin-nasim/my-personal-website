@@ -54,7 +54,7 @@ const Header = ({
             {logo}
           </div>
           <div className="w-[40px] h-[40px] md:w-[60px] md:h-[60px] opacity-90">
-            <InteractiveEye size={40} trackingSpeed={0.05} />
+            <InteractiveEye size={50} trackingSpeed={0.9} />
           </div>
         </div>
 

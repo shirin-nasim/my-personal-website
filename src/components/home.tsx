@@ -1,13 +1,10 @@
 import React from "react";
 import Header from "./Header";
-import InteractiveEye from "./InteractiveEye";
 import HeroSection from "./HeroSection";
 import { motion } from "framer-motion";
+import { doctorInfo } from "../config/doctor";
 
 interface Props {
-  doctorName?: string;
-  tagline?: string;
-  doctorImageUrl?: string;
   navigationItems?: Array<{
     title: string;
     href: string;
@@ -17,9 +14,6 @@ interface Props {
 }
 
 const Home = ({
-  doctorName = "Dr. Shirin Nasimudeen",
-  tagline = "Expert Eye Care with a Personal Touch",
-  doctorImageUrl = "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop",
   navigationItems = [
     {
       title: "Services",
@@ -54,9 +48,11 @@ const Home = ({
         emergencyPhone={emergencyPhone}
       />
       <HeroSection
-        doctorName={doctorName}
-        tagline={tagline}
-        doctorImageUrl={doctorImageUrl}
+        doctorName={doctorInfo.name}
+        tagline="Expert Eye Care with a Personal Touch"
+        doctorImageUrl={doctorInfo.image.url}
+        imageRatio={doctorInfo.image.ratio}
+        imageFit={doctorInfo.image.fit}
       />
 
       {/* Services Section */}
