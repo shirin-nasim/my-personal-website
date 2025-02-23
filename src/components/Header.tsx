@@ -22,10 +22,12 @@ interface Props {
 }
 
 const Header = ({
-  logo = "Dr Shirin's",
+  logo = "Dr Shirin's clinic",
   navigationItems = [
     { title: "Home", href: "#home" },
     { title: "Services", href: "#services" },
+    { title: "Book Appointment", href: "/book" },
+    { title: "Profile", href: "/profile" },
   ],
   emergencyPhone = "1-800-EYE-CARE",
 }: Props) => {
@@ -42,7 +44,7 @@ const Header = ({
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md transition-all duration-300 ${isScrolled ? "shadow-lg" : ""}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "shadow-lg bg-white/90 backdrop-blur-md" : "bg-gradient-to-r from-white/95 via-blue-50/95 to-white/95 backdrop-blur-sm border-b border-blue-100/50"}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100 }}
@@ -50,7 +52,7 @@ const Header = ({
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo with Interactive Eye */}
         <div className="flex items-center gap-3">
-          <div className="text-xl md:text-2xl font-bold text-[#0A2647]">
+          <div className="text-xl md:text-2xl font-bold bg-gradient-to-r from-[#0A2647] to-blue-600 bg-clip-text text-transparent">
             {logo}
           </div>
           <div className="w-[40px] h-[40px] md:w-[60px] md:h-[60px] opacity-90">
@@ -67,11 +69,13 @@ const Header = ({
                   <NavigationMenuLink asChild>
                     <a
                       href={item.href}
-                      className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-[#0A2647] hover:bg-slate-100 focus:bg-slate-100"
+                      className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-[#0A2647] hover:bg-blue-50/50 focus:bg-blue-50/50"
                       onClick={(e) => {
-                        e.preventDefault();
-                        const element = document.querySelector(item.href);
-                        element?.scrollIntoView({ behavior: "smooth" });
+                        if (item.href.startsWith("#")) {
+                          e.preventDefault();
+                          const element = document.querySelector(item.href);
+                          element?.scrollIntoView({ behavior: "smooth" });
+                        }
                       }}
                     >
                       {item.title}

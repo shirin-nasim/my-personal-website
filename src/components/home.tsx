@@ -15,30 +15,15 @@ interface Props {
 
 const Home = ({
   navigationItems = [
-    {
-      title: "Services",
-      href: "#",
-      items: [
-        {
-          title: "Eye Examinations",
-          href: "#",
-          description: "Comprehensive eye health evaluations",
-        },
-        {
-          title: "LASIK Surgery",
-          href: "#",
-          description: "Advanced laser vision correction",
-        },
-      ],
-    },
-    { title: "About", href: "#" },
-    { title: "Contact", href: "#" },
+    { title: "Home", href: "#home" },
+    { title: "Services", href: "#services" },
+    { title: "Profile", href: "/profile" },
   ],
   emergencyPhone = "1-800-EYE-CARE",
 }: Props) => {
   return (
     <motion.div
-      className="min-h-screen w-full bg-gradient-to-b from-blue-50 via-white to-blue-50"
+      className="w-full bg-gradient-to-b from-blue-50 via-white to-blue-50"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -56,7 +41,7 @@ const Home = ({
       />
 
       {/* Services Section */}
-      <section id="services" className="py-24 relative overflow-hidden">
+      <section id="services" className="pt-4 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[#0A2647] opacity-5 pattern-grid-lg"></div>
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -65,7 +50,7 @@ const Home = ({
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-center text-[#0A2647] mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-[#0A2647] mb-6">
               Comprehensive Eye Care Services
             </h2>
           </motion.div>
@@ -97,14 +82,14 @@ const Home = ({
                 viewport={{ once: true }}
                 className="group"
               >
-                <div className="bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-                  <div className="text-5xl mb-6 transform group-hover:scale-110 transition-transform">
+                <div className="bg-white/80 backdrop-blur-lg p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-[180px] flex flex-col">
+                  <div className="text-4xl mb-4 transform group-hover:scale-110 transition-transform">
                     {service.icon}
                   </div>
-                  <h3 className="text-xl font-semibold text-[#0A2647] mb-3">
+                  <h3 className="text-lg font-semibold text-[#0A2647] mb-3 line-clamp-2">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed text-sm">
+                  <p className="text-gray-600 leading-relaxed text-sm line-clamp-3 flex-grow">
                     {service.description}
                   </p>
                 </div>

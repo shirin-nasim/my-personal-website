@@ -22,8 +22,11 @@ const HeroSection = ({
   const navigate = useNavigate();
 
   return (
-    <div id="home" className="relative bg-white pt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+    <div
+      id="home"
+      className="relative bg-white pt-16 flex items-center h-[65vh]"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Text Content */}
           <div>
