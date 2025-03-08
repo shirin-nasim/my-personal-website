@@ -25,8 +25,8 @@ import {
 const Profile = () => {
   const handleDownload = async () => {
     try {
-      const { generatePDF } = await import("../utils/generatePDF");
-      const doc = generatePDF();
+      const { generateProfilePDF } = await import("../utils/html2pdf");
+      const doc = await generateProfilePDF();
       doc.save(`${doctorInfo.name.replace(" ", "_")}_CV.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
